@@ -1,0 +1,30 @@
+version: "3.1"
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  reservations-api:
+    image: nestjs-docker
+    container_name: reservations-api
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=dev
+      - MONGO_USER=root
+      - MONGO_PASS=example
+      - MONGO_URL=mongodb://root:example@mongo:27017/
+    volumes:
+      - ./src:/usr/src/app/src
+    depends_on:
+      - mongo
