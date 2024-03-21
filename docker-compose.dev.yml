@@ -1,8 +1,9 @@
 version: "3.1"
 
 services:
-  mongo:
+  mongo-reservations:
     image: mongo
+    container_name: mongo-reservations
     restart: always
     ports:
       - "27017:27017"
@@ -21,10 +22,8 @@ services:
     environment:
       - PORT=3000
       - NODE_ENV=dev
-      - MONGO_USER=root
-      - MONGO_PASS=example
-      - MONGO_URL=mongodb://root:example@mongo:27017/
+      - MONGO_URL=mongodb://root:example@localhost:27017/
     volumes:
       - ./src:/usr/src/app/src
     depends_on:
-      - mongo
+      - mongo-reservations
