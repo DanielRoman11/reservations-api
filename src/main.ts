@@ -1,12 +1,19 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const port = process.env.PORT || 3000;
-  await app.listen(port, () => {
-    console.log('API on port: ', port);
-  });
+  const config = new DocumentBuilder()
+    .setTitle('Reservations Endpoints')
+    .setDescription('All the endpoints of the API are here')
+    .setVersion('1.0')
+    .addTag('reservations')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('', app, document)
+  await app.listen(3000);
 }
 bootstrap();
