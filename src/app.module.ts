@@ -5,7 +5,8 @@ import { UsersModule } from './users/users.module';
 @Module({
   imports: [
     DatabasesModule,
-    UsersModule
+    UsersModule,
+    
   ],
   controllers: [],
   providers: [],
