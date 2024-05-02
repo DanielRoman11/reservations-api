@@ -1,8 +1,15 @@
 {
   "name": "ReservationEnv",
-  "dockerComposeFile" : [
-    "../compose-app.yml"
-  ],
+  "dockerComposeFile": ["../compose-app.yml"],
   "service": "app",
-  "workspaceFolder": "/app"
+  "workspaceFolder": "/app",
+  "forwardPorts": [3000],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "cweijan.vscode-database-client2",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  }
 }
