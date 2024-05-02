@@ -1,7 +1,9 @@
+import { User } from 'src/user/entities/user.entity';
 import { Accommodation } from '../../accommodation/entities/accommodation.entity';
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   Relation,
@@ -21,6 +23,11 @@ export class Booking {
   @Column('decimal')
   totalPrice: number;
 
+  @ManyToOne(() => User, (user) => user.bookings)
+  @JoinColumn()
+  user: Relation<User>;
+
   @ManyToOne(() => Accommodation, (accommodation) => accommodation.booking)
+  @JoinColumn()
   accommodation: Relation<Accommodation>;
 }

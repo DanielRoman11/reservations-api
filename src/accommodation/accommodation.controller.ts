@@ -1,6 +1,8 @@
 import { Controller, Get, Post, Patch, Param, Delete } from '@nestjs/common';
 import { AccommodationService } from './accommodation.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Accommodation')
 @Controller('accommodation')
 export class AccommodationController {
   constructor(private readonly accommodationService: AccommodationService) {}
