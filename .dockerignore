@@ -8,13 +8,13 @@ logs
 *.log
 npm-debug.log*
 pnpm-debug.log*
-.pnpm-store
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
 # OS
 .DS_Store
+.pnpm-store
 
 # Tests
 /coverage

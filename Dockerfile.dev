@@ -1,12 +1,21 @@
-FROM node:20-alpine AS dev
+FROM node:20-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
+COPY . /app
+WORKDIR /app
 
-WORKDIR /usr/src/app
-COPY . .
+RUN npm init -y
 
+FROM base AS dev-deps
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+
+FROM base
+COPY --from=dev-deps /app/node_modules /app/node_modules
+
+RUN pnpm config set store-dir ~/.pnpm-store
+RUN pnpm i
+RUN apk add git
 
 EXPOSE 3000
 
