@@ -8,6 +8,7 @@ import {
 import { ValidationPipe } from '@nestjs/common';
 import fastifyCsrf from '@fastify/csrf-protection';
 import helmet from '@fastify/helmet';
+import cors from '@fastify/cors';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -30,9 +31,9 @@ async function bootstrap() {
   app.register(helmet, {
     contentSecurityPolicy: false,
   });
+  await app.register(cors);
 
   app.useGlobalPipes(new ValidationPipe());
-  app.enableCors();
 
   const config = new DocumentBuilder()
     .setTitle('booking Endpoints')
