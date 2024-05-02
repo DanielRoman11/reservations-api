@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { BookingService } from './booking.service';
 import { BookingController } from './booking.controller';
-import { DatabaseModule } from 'src/database/database.module';
+import { DatabaseModule } from '../database/database.module';
 import { bookingProviders } from './booking.providers';
 
 @Module({

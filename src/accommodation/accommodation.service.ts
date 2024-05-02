@@ -1,7 +1,7 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Accommodation } from './entities/accommodation.entity';
 import { Repository } from 'typeorm';
-import { ACCOMODATION } from 'src/constants';
+import { ACCOMODATION } from '../constants';
 
 @Injectable()
 export class AccommodationService {

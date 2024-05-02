@@ -16,7 +16,20 @@ async function bootstrap() {
   );
 
   await app.register(fastifyCsrf);
-  await app.register(helmet);
+  await app.register(helmet, {
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: [`'self'`],
+        styleSrc: [`'self'`, `'unsafe-inline'`],
+        imgSrc: [`'self'`, 'data:', 'validator.swagger.io'],
+        scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
+      },
+    },
+  });
+
+  app.register(helmet, {
+    contentSecurityPolicy: false,
+  });
 
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors();
@@ -27,9 +40,9 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('booking')
     .build();
-
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+
   const port = process.env.PORT || 3000;
   await app.listen(port);
   console.log(`Application is running on: ${await app.getUrl()}`);

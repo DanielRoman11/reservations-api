@@ -3,7 +3,7 @@ import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingDto } from './dto/update-booking.dto';
 import { Repository } from 'typeorm';
 import { Booking } from './entities/booking.entity';
-import { BOOKING } from 'src/constants';
+import { BOOKING } from '../constants';
 
 @Injectable()
 export class BookingService {

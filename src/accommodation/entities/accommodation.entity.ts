@@ -1,5 +1,5 @@
-import { Booking } from 'src/booking/entities/booking.entity';
-import { Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Booking } from '../../booking/entities/booking.entity';
+import { Entity, OneToMany, PrimaryGeneratedColumn, Relation } from 'typeorm';
 
 @Entity()
 export class Accommodation {
@@ -7,5 +7,5 @@ export class Accommodation {
   id: string;
 
   @OneToMany(() => Booking, (booking) => booking.accommodation)
-  booking: Booking;
+  booking: Relation<Booking>;
 }
