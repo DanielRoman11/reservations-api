@@ -1,6 +1,13 @@
-import { Booking } from 'src/booking/entities/booking.entity';
-import { Column, OneToMany, PrimaryGeneratedColumn, Relation } from 'typeorm';
+import { Booking } from '../../booking/entities/booking.entity';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  Relation,
+} from 'typeorm';
 
+@Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
