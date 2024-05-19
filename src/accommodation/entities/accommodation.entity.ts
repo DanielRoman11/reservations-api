@@ -15,20 +15,23 @@ export class Accommodation {
   @Column()
   title: string;
 
-  @Column({ default: 1 })
+  @Column()
   rooms: number;
 
-  @Column({ default: 1 })
+  @Column()
   beds: number;
 
-  @Column({ default: 1 })
+  @Column()
   bathrooms: number;
 
-  @Column({ default: 1 })
+  @Column()
   price: number;
 
   @Column({ default: true })
   wifi: boolean;
+
+  @Column({ default: true })
+  pets: boolean;
 
   @Column({ type: 'timestamp' })
   arrivalDate: Date;
@@ -45,6 +48,8 @@ export class Accommodation {
   @Column()
   lng: string;
 
-  @OneToMany(() => Booking, (booking) => booking.accommodation)
+  @OneToMany(() => Booking, (booking) => booking.accommodation, {
+    nullable: true,
+  })
   booking: Relation<Booking>;
 }
