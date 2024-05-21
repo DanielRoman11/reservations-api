@@ -1,7 +1,10 @@
+import { User } from 'src/user/entities/user.entity';
 import { Booking } from '../../booking/entities/booking.entity';
 import {
   Column,
   Entity,
+  JoinColumn,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   Relation,
@@ -33,12 +36,6 @@ export class Accommodation {
   @Column({ default: true })
   pets: boolean;
 
-  @Column({ type: 'timestamp' })
-  arrivalDate: Date;
-
-  @Column({ type: 'timestamp' })
-  departureDate: Date;
-
   @Column({ default: 1 })
   guests: number;
 
@@ -52,4 +49,8 @@ export class Accommodation {
     nullable: true,
   })
   booking: Relation<Booking>;
+
+  @ManyToOne(() => User, (user) => user.properties)
+  @JoinColumn()
+  owner: Relation<User>;
 }
