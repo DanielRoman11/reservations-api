@@ -1,8 +1,9 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Accommodation } from './entities/accommodation.entity';
-import { Repository } from 'typeorm';
-import { ACCOMODATION } from '../constants';
+import { InsertQueryBuilder, Repository } from 'typeorm';
+import { ACCOMODATION, USER } from '../constants';
 import { CreateAccommodationDto } from './dto/create-accommodation.dto';
+import { User } from 'src/user/entities/user.entity';
 
 @Injectable()
 export class AccommodationService {
@@ -10,19 +11,15 @@ export class AccommodationService {
   constructor(
     @Inject(ACCOMODATION)
     private accommRepo: Repository<Accommodation>,
+    @Inject(USER)
+    private userRepo: Repository<User>,
   ) {}
 
-  async create(accom: CreateAccommodationDto) {
-    console.log(accom);
-    const newAccom = this.accommRepo.create({
-      ...accom,
-      arrivalDate: new Date(accom.arrivalDate),
-      departureDate: new Date(accom.departureDate),
-    });
-
-    this.accomLogger.debug('New Accommodation created');
-
-    return await this.accommRepo.save(newAccom);
+  async create(accom: CreateAccommodationDto): Promise<Accommodation> {
+    const newAccomm = this.accommRepo.create(accom);
+    const user = await this.userRepo.findOneBy({ id: 1 });
+    newAccomm.owner = user;
+    return await this.accommRepo.save(newAccomm);
   }
 
   async findAll() {
