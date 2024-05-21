@@ -14,13 +14,13 @@ export class Booking {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('date')
-  checkInDate: Date;
+  @Column({ type: 'timestamp' })
+  arrivalDate: Date;
 
-  @Column('date')
-  checkOutDate: Date;
+  @Column({ type: 'timestamp' })
+  departureDate: Date;
 
-  @Column('decimal')
+  @Column('integer')
   totalPrice: number;
 
   @ManyToOne(() => User, (user) => user.bookings)
