@@ -1,3 +1,4 @@
+import { Accommodation } from 'src/accommodation/entities/accommodation.entity';
 import { Booking } from '../../booking/entities/booking.entity';
 import {
   Column,
@@ -23,4 +24,7 @@ export class User {
 
   @OneToMany(() => Booking, (booking) => booking.user)
   bookings: Relation<Booking[]>;
+
+  @OneToMany(() => Accommodation, (accommodation) => accommodation.owner)
+  properties: Relation<Accommodation[]>;
 }
