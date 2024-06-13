@@ -1,6 +1,5 @@
 import { User } from '../../user/models/user.model';
-import { Accommodation } from '../../accommodation/models/accommodation.model';
-import { Column, Entity, ObjectIdColumn, Relation } from 'typeorm';
+import { Column, Entity, ObjectId, ObjectIdColumn } from 'typeorm';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
@@ -24,5 +23,5 @@ export class Booking {
 
   @Field(() => User)
   @Column()
-  userId: number;
+  userId: ObjectId;
 }

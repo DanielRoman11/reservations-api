@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { USER } from 'src/constants';
+import { USER } from '../constants';
 import { Repository } from 'typeorm';
 import { User } from './models/user.model';
 

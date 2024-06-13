@@ -1,16 +1,15 @@
-import { Accommodation } from 'src/accommodation/models/accommodation.model';
 import { Booking } from '../../booking/models/booking.model';
-import { Column, Entity, ObjectIdColumn, Relation } from 'typeorm';
-import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { BookingService } from 'src/booking/booking.service';
+import { Column, Entity, ObjectId, ObjectIdColumn } from 'typeorm';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { BookingService } from '../../booking/booking.service';
 
 @ObjectType()
 @Entity()
 export class User {
   constructor(private readonly bookingService: BookingService) {}
-  @Field(() => Int)
+  @Field(() => ID)
   @ObjectIdColumn()
-  id: number;
+  id: ObjectId;
 
   @Field()
   @Column()
@@ -24,8 +23,8 @@ export class User {
   @Column()
   password: string;
 
-  @Field(() => [Booking])
-  async bookings() {
+  @Field(() => [Booking], { nullable: true })
+  async bookings(): Promise<Booking[] | null> {
     return await this.bookingService.getBookingByUserId(this.id);
   }
 }

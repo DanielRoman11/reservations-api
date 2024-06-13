@@ -6,5 +6,6 @@ import { bookingProviders } from './booking.providers';
 @Module({
   imports: [DatabaseModule],
   providers: [...bookingProviders, BookingService],
+  exports: [BookingService],
 })
 export class BookingModule {}
