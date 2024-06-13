@@ -4,14 +4,13 @@ import { BookingModule } from './booking/booking.module';
 import { AccommodationModule } from './accommodation/accommodation.module';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
-import { UserService } from './user/user.service';
 import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: ['.env.${process.env.NODE_ENV}', '.env'],
+      envFilePath: [`.env.${process.env.NODE_ENV}`, '.env'],
     }),
     DatabaseModule,
     BookingModule,
@@ -19,6 +18,5 @@ import { UserModule } from './user/user.module';
     UserModule,
   ],
   controllers: [AppController],
-  providers: [UserService],
 })
 export class AppModule {}

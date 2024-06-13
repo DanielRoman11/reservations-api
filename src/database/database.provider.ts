@@ -11,7 +11,7 @@ export const databaseProviders = [
         useNewUrlParser: true,
         useUnifiedTopology: true,
         entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-        synchronize: process.env.NODE_ENV === 'development',
+        synchronize: process.env.NODE_ENV === 'dev',
       });
 
       await dataSource.initialize();

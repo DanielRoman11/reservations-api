@@ -50,7 +50,9 @@ export class Accommodation {
   })
   booking: Relation<Booking>;
 
-  @ManyToOne(() => User, (user) => user.properties)
+  @ManyToOne(() => User, (user) => user.properties, {
+    cascade: true,
+  })
   @JoinColumn()
   owner: Relation<User>;
 }

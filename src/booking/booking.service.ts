@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateBookingDto } from './dto/create-booking.dto';
-import { UpdateBookingDto } from './dto/update-booking.dto';
+import { CreateBookingDto } from './input/create-booking.dto';
+import { UpdateBookingDto } from './input/update-booking.dto';
 import { Repository } from 'typeorm';
 import { Booking } from './entities/booking.entity';
 import { BOOKING } from '../constants';

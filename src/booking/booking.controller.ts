@@ -8,8 +8,8 @@ import {
   Delete,
 } from '@nestjs/common';
 import { BookingService } from './booking.service';
-import { CreateBookingDto } from './dto/create-booking.dto';
-import { UpdateBookingDto } from './dto/update-booking.dto';
+import { CreateBookingDto } from './input/create-booking.dto';
+import { UpdateBookingDto } from './input/update-booking.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Booking')

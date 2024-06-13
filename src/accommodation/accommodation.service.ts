@@ -1,41 +1,42 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Accommodation } from './entities/accommodation.entity';
-import { InsertQueryBuilder, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { ACCOMODATION, USER } from '../constants';
-import { CreateAccommodationDto } from './dto/create-accommodation.dto';
+import { CreateAccommodationDto } from './input/create-accommodation.dto';
 import { User } from 'src/user/entities/user.entity';
+import { UserService } from 'src/user/user.service';
+import { UpdateAccommodationDto } from './input/update-accommodation.dto';
 
 @Injectable()
 export class AccommodationService {
-  private readonly accomLogger = new Logger(AccommodationService.name);
+  private readonly logger = new Logger(AccommodationService.name);
   constructor(
     @Inject(ACCOMODATION)
     private accommRepo: Repository<Accommodation>,
-    @Inject(USER)
-    private userRepo: Repository<User>,
+    private userService: UserService,
   ) {}
 
-  async create(accom: CreateAccommodationDto): Promise<Accommodation> {
-    const newAccomm = this.accommRepo.create(accom);
-    const user = await this.userRepo.findOneBy({ id: 1 });
-    newAccomm.owner = user;
-    return await this.accommRepo.save(newAccomm);
-  }
-
-  async findAll() {
-    this.accomLogger.debug('Hit All endpoint');
-    return await this.accommRepo.find();
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} accommodation`;
-  }
-
-  update() {
+  public async create(
+    accom: CreateAccommodationDto,
+    id: Pick<User, 'id'>,
+  ): Promise<Accommodation> {
     return;
   }
 
-  remove(id: number) {
+  public async findAll() {
+    return await this.accommRepo.find();
+  }
+
+  public async findOne(id: Pick<Accommodation, 'id'>) {
+    const user = await this.accommRepo.findOneBy(id);
+    return user ?? new NotFoundException(`User not Found`);
+  }
+
+  public async update(input: UpdateAccommodationDto, id: Pick<User, 'id'>) {
+    return;
+  }
+
+  public async remove(id: number) {
     return `This action removes a #${id} accommodation`;
   }
 }
