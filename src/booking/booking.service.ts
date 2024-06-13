@@ -1,9 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateBookingDto } from './input/create-booking.dto';
-import { UpdateBookingDto } from './input/update-booking.dto';
+import { BOOKING } from 'src/constants';
 import { Repository } from 'typeorm';
-import { Booking } from './entities/booking.entity';
-import { BOOKING } from '../constants';
+import { Booking } from './models/booking.model';
+import { User } from 'src/user/models/user.model';
 
 @Injectable()
 export class BookingService {
@@ -12,23 +11,15 @@ export class BookingService {
     private readonly bookingRepo: Repository<Booking>,
   ) {}
 
-  create(createBookingDto: CreateBookingDto) {
-    return createBookingDto;
+  public async AllBookings() {
+    return await this.bookingRepo.find();
   }
 
-  findAll() {
-    return `This action returns all booking`;
+  public async getBookingById(id: Pick<Booking, 'id'>) {
+    return await this.bookingRepo.findOneByOrFail(id);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} booking`;
-  }
-
-  update(id: number, updateBookingDto: UpdateBookingDto) {
-    return updateBookingDto;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} booking`;
+  public async getBookingByUserId(id: number) {
+    return await this.bookingRepo.find({ where: { userId: id } });
   }
 }

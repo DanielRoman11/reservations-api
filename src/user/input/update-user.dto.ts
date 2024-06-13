@@ -1,4 +1,6 @@
 import { PartialType } from '@nestjs/swagger';
-import { CreateUserDto } from './create-user.dto';
+import { InputType } from '@nestjs/graphql';
+import { CreateUserInput } from './create-user.input';
 
-export class UpdateUserDto extends PartialType(CreateUserDto) {}
+@InputType()
+export class UpdateUserDto extends PartialType(CreateUserInput) {}

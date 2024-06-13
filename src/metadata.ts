@@ -2,18 +2,15 @@
 export default async () => {
   const t = {
     ['./booking/entities/booking.entity']: await import(
-      './booking/entities/booking.entity'
-    ),
-    ['./user/entities/user.entity']: await import(
-      './user/entities/user.entity'
+      './booking/models/booking.model'
     ),
     ['./accommodation/entities/accommodation.entity']: await import(
-      './accommodation/entities/accommodation.entity'
+      './accommodation/models/accommodation.model'
     ),
-    ['./booking/dto/create-booking.dto']: await import(
+    ['./booking/input/create-booking.dto']: await import(
       './booking/input/create-booking.dto'
     ),
-    ['./booking/dto/update-booking.dto']: await import(
+    ['./booking/input/update-booking.dto']: await import(
       './booking/input/update-booking.dto'
     ),
   };
@@ -35,7 +32,7 @@ export default async () => {
           { UpdateBookingDto: {} },
         ],
         [
-          import('./accommodation/entities/accommodation.entity'),
+          import('./accommodation/models/accommodation.model'),
           {
             Accommodation: {
               id: { required: true, type: () => String },
@@ -53,47 +50,19 @@ export default async () => {
                 required: true,
                 type: () => t['./booking/entities/booking.entity'].Booking,
               },
-              owner: {
-                required: true,
-                type: () => t['./user/entities/user.entity'].User,
-              },
+              owner: { required: true, type: () => Object },
             },
           },
         ],
         [
-          import('./user/entities/user.entity'),
-          {
-            User: {
-              id: { required: true, type: () => Number },
-              email: { required: true, type: () => String },
-              username: { required: true, type: () => String },
-              password: { required: true, type: () => String },
-              bookings: {
-                required: true,
-                type: () => [t['./booking/entities/booking.entity'].Booking],
-              },
-              properties: {
-                required: true,
-                type: () => [
-                  t['./accommodation/entities/accommodation.entity']
-                    .Accommodation,
-                ],
-              },
-            },
-          },
-        ],
-        [
-          import('./booking/entities/booking.entity'),
+          import('./booking/models/booking.model'),
           {
             Booking: {
               id: { required: true, type: () => String },
               arrivalDate: { required: true, type: () => Date },
               departureDate: { required: true, type: () => Date },
               totalPrice: { required: true, type: () => Number },
-              user: {
-                required: true,
-                type: () => t['./user/entities/user.entity'].User,
-              },
+              user: { required: true, type: () => Object },
               accommodation: {
                 required: true,
                 type: () =>
@@ -123,7 +92,11 @@ export default async () => {
           },
         ],
         [
-          import('./user/input/create-user.dto'),
+          import('./accommodation/input/update-accommodation.dto'),
+          { UpdateAccommodationDto: {} },
+        ],
+        [
+          import('./user/input/create-user.input'),
           {
             CreateUserDto: {
               username: { required: true, type: () => String },
@@ -133,10 +106,6 @@ export default async () => {
           },
         ],
         [import('./user/input/update-user.dto'), { UpdateUserDto: {} }],
-        [
-          import('./accommodation/input/update-accommodation.dto'),
-          { UpdateAccommodationDto: {} },
-        ],
       ],
       controllers: [
         [import('./app.controller'), { AppController: { index: {} } }],
@@ -145,12 +114,12 @@ export default async () => {
           {
             BookingController: {
               create: {
-                type: t['./booking/dto/create-booking.dto'].CreateBookingDto,
+                type: t['./booking/input/create-booking.dto'].CreateBookingDto,
               },
               findAll: { type: String },
               findOne: { type: String },
               update: {
-                type: t['./booking/dto/update-booking.dto'].UpdateBookingDto,
+                type: t['./booking/input/update-booking.dto'].UpdateBookingDto,
               },
               remove: { type: String },
             },
@@ -171,18 +140,6 @@ export default async () => {
                 ],
               },
               findOne: { type: Object },
-              update: { type: String },
-              remove: { type: String },
-            },
-          },
-        ],
-        [
-          import('./user/user.controller'),
-          {
-            UserController: {
-              create: { type: String },
-              findAll: { type: [t['./user/entities/user.entity'].User] },
-              findOne: { type: t['./user/entities/user.entity'].User },
               update: { type: String },
               remove: { type: String },
             },

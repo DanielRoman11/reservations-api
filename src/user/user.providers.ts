@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { User } from './entities/user.entity';
+import { User } from './models/user.model';
 import { USER, MONGO } from 'src/constants';
 
 export const userProviders = [

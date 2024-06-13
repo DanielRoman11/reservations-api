@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 import { BOOKING, MONGO } from '../constants';
-import { Booking } from './entities/booking.entity';
+import { Booking } from './models/booking.model';
 
 export const bookingProviders = [
   {

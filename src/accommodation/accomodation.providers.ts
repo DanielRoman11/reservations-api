@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { Accommodation } from './entities/accommodation.entity';
+import { Accommodation } from './models/accommodation.model';
 import { ACCOMODATION, MONGO } from '../constants';
 
 export const accommodationProviders = [

@@ -1,6 +1,8 @@
+import { InputType } from '@nestjs/graphql';
 import { IsEmail, IsStrongPassword, Length } from 'class-validator';
 
-export class CreateUserDto {
+@InputType()
+export class CreateUserInput {
   @Length(4, 20)
   username: string;
 

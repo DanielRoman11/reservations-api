@@ -10,7 +10,7 @@ export const databaseProviders = [
         url: process.env.MONGO_URL,
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+        entities: [__dirname + '/../**/*.model{.ts,.js}'],
         synchronize: process.env.NODE_ENV === 'dev',
       });
 
