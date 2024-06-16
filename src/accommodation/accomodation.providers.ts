@@ -6,7 +6,7 @@ export const accommodationProviders = [
   {
     provide: ACCOMODATION,
     useFactory: (dataSource: DataSource) =>
-      dataSource.getRepository(Accommodation),
+      dataSource.getMongoRepository(Accommodation),
     inject: [MONGO],
   },
 ];

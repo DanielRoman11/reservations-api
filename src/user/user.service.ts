@@ -1,6 +1,6 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { USER } from '../constants';
-import { MongoRepository } from 'typeorm';
+import { MongoRepository, ObjectId } from 'typeorm';
 import { User } from './models/user.model';
 import { CreateUserInput } from './input/create-user.input';
 import * as bcrypt from 'bcrypt';
@@ -12,14 +12,13 @@ export class UserService {
     private readonly userRepo: MongoRepository<User>,
   ) {}
 
-  public async addUser(input: CreateUserInput) {
-    const userExist = await this.userRepo.findOne({
-      where: { $or: [{ username: input.username }, { email: input.username }] },
+  public async findUser(value: string): Promise<User | null> {
+    return await this.userRepo.findOne({
+      where: { $or: [{ email: value }, { username: value }] },
     });
+  }
 
-    if (userExist)
-      throw new BadRequestException(`This username or email is already taken`);
-
+  public async addUser(input: CreateUserInput) {
     return await this.userRepo.save(
       new User({
         ...input,

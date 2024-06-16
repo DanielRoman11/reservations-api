@@ -5,7 +5,7 @@ import { USER, MONGO } from '../constants';
 export const userProviders = [
   {
     provide: USER,
-    useFactory: (dataSource: DataSource) => dataSource.getRepository(User),
+    useFactory: (dataSource: DataSource) => dataSource.getMongoRepository(User),
     inject: [MONGO],
   },
 ];
