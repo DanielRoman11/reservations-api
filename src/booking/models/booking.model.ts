@@ -1,4 +1,4 @@
-import { User } from '../../user/models/user.model';
+import { User } from '../../auth/models/user.model';
 import { Column, Entity, ObjectId, ObjectIdColumn } from 'typeorm';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
@@ -20,8 +20,4 @@ export class Booking {
   @Field()
   @Column()
   totalPrice: number;
-
-  @Field(() => User)
-  @Column()
-  userId: ObjectId;
 }

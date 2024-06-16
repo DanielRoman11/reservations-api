@@ -4,7 +4,7 @@ import { BookingModule } from './booking/booking.module';
 import { AccommodationModule } from './accommodation/accommodation.module';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
-import { UserModule } from './user/user.module';
+import { UserModule } from './auth/user.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 

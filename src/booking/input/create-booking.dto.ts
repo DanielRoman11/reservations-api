@@ -1,15 +1,19 @@
-import { IsDateString, IsNumberString, IsNotEmpty } from 'class-validator';
+import { Field, InputType } from '@nestjs/graphql';
+import { IsDateString, IsPositive } from 'class-validator';
+import { IsGreaterDate } from 'src/validation/is-greater-date.constraint';
 
-export class CreateBookingDto {
-  @IsNotEmpty()
+@InputType()
+export class CreateBookingInput {
+  @Field()
   @IsDateString()
   checkInDate: string;
 
-  @IsNotEmpty()
+  @Field()
   @IsDateString()
+  @IsGreaterDate('checkInDate')
   checkOutDate: string;
 
-  @IsNotEmpty()
-  @IsNumberString()
+  @Field()
+  @IsPositive()
   totalPrice: string;
 }

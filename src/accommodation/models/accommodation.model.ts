@@ -1,11 +1,13 @@
 import { Field, ObjectType, ID } from '@nestjs/graphql';
 import { Entity, ObjectIdColumn, Column, Relation } from 'typeorm';
-import { Booking } from '../../booking/models/booking.model';
-import { User } from '../../user/models/user.model';
 
 @ObjectType()
 @Entity()
 export class Accommodation {
+  constructor(partial: Partial<Accommodation>) {
+    Object.assign(this, partial);
+  }
+
   @Field(() => ID)
   @ObjectIdColumn()
   id: string;
@@ -49,10 +51,4 @@ export class Accommodation {
   @Field()
   @Column()
   lng: string;
-
-  @Field(() => Promise<[Booking]>, { nullable: true })
-  bookings: Promise<Relation<Booking[]>>;
-
-  @Field(() => Promise<User>)
-  owner: Promise<Relation<User>>;
 }
