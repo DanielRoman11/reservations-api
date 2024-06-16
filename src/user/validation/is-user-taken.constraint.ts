@@ -20,9 +20,7 @@ export class IsUserAlreadyTakenConstraint
   }
 
   defaultMessage?(args?: ValidationArguments): string {
-    throw new BadRequestException(
-      `User with ${args.property} '${args.value}' already exists. Choose another`,
-    );
+    return `User with ${args.property} '${args.value}' already exists. Choose another`;
   }
 }
 
